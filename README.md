@@ -115,13 +115,12 @@ Let's use this hypothetical table as an example:
   <td>3</td>
   <td>Kyra</td>
 </tr>
-<tr>
 </table>
 
 If we would use an index match formula to return the name of a dog, we would use
 
 ``` bash
-=INDEX($A$1:$C$6, MATCH("dog",$A$1:$A$6,2))
+=INDEX($A$1:$C$6, MATCH("dog",$A$1:$A$6,0),2)
 ```
 
 <i>Expected output:</i> `Confetti`, since its the first dog name that appears on the table. 
@@ -129,7 +128,7 @@ If we would use an index match formula to return the name of a dog, we would use
 Now if we wanted to know which is the name of a 4 y/o Cat, we would need to use an array index match formula:
 
 ``` bash
-=INDEX($A$1:$C$6, MATCH("cat"&"4",$A$1:$A$6&$B$1:$B$6,2))
+=INDEX($A$1:$C$6, MATCH("cat"&"4",$A$1:$A$6&$B$1:$B$6,0),2)
 ```
 
 <i>Expected output:</i> `Simba`
@@ -157,12 +156,121 @@ If for some reason you would need to include nonbreaking space characters, you c
 
 #### Search for a keyword within a cell and categorize it with a label
 
+There are several ways to create a 'Category' column. In this example I'll show one that helped me on several occassions. 
+
+Let's use this table as an example:
+
+<table>
+<tr>
+  <th> </th>
+  <th>A</th>
+  <th>B</th>
+</tr>
+<tr>
+  <th>1</th>  
+  <td>Category</td>
+  <td>Product</td>
+</tr>
+<tr>
+  <th>2</th>    
+  <td> </td>
+  <td>Cellphone</td>
+</tr>
+<tr>
+  <th>3</th>  
+  <td> </td>
+  <td>Computer</td>
+</tr>
+<tr>
+  <th>4</th>  
+  <td> </td>
+  <td>Computer Desk</td>
+</tr>
+<tr>
+  <th>5</th>  
+  <td> </td>
+  <td>Chair</td>
+</tr>
+<tr>
+  <th>6</th>  
+  <td> </td>
+  <td>Table</td>
+</tr>
+</table>
+
+Let's imagine that we have a list of items and we would like to categorize these as 'Technology', 'Furniture' . We could use a nested IF formula similar to this one to do it:
+
+``` bash
+=IF(OR(B4="Cellphone",B4="Computer"), "Technology", IF(OR(B4="Desk",B4="Chair",B4="Table"), "Furniture", "Uncategorized"))
+```
+
+However, that formula would bring us issues to categorize "Desk", as the value in the cell B4 says "Computer Desk" and not only "Desk". To fix this, we could rearrange the formula a bit and use this one instead
+
+``` bash
+=IF(OR(B4="Cellphone",B4="Computer"), "Technology", IF(OR(ISNUMBER(SEARCH("Desk",B4)),B4="Chair",B4="Table"), "Furniture", "Uncategorized"))
+```
+
+<i>Expected output:</i> 
+
+<table>
+<tr>
+  <th> </th>
+  <th>A</th>
+  <th>B</th>
+</tr>
+<tr>
+  <th>1</th>  
+  <td>Category</td>
+  <td>Product</td>
+</tr>
+<tr>
+  <th>2</th>    
+  <td>Technology</td>
+  <td>Cellphone</td>
+</tr>
+<tr>
+  <th>3</th>  
+  <td>Technology</td>
+  <td>Computer</td>
+</tr>
+<tr>
+  <th>4</th>  
+  <td>Furniture</td>
+  <td>Computer Desk</td>
+</tr>
+<tr>
+  <th>5</th>  
+  <td>Furniture</td>
+  <td>Chair</td>
+</tr>
+<tr>
+  <th>6</th>  
+  <td>Furniture</td>
+  <td>Table</td>
+</tr>
+</table>
+
+What the =ISNUMBER(SEARCH("Desk",B4)) formula does is to search for the position of the word "Desk" inside the string "Computer Desk", and if that formula throws a number (which it would do, if the word is in the string of B4) the =ISNUMBER() would return a TRUE boolean result, and since this is all inside an =OR() formula (which basically executes the TRUE condition of the IF formula, if any of the checks inside the =OR() throw a TRUE result) it ends up returning the category that we wanted, which is 'Furniture'.      
+
+
+Again, this is one of many ways to label a keyword. in Google Sheets you could even use =IFS() to perform a similar function to a nested IF but more legible.
+
 
 #
 
 #### Replace an #ERROR with some text
 
+A generic way to replace an #ERROR with a specific text would be to use the =IFERROR formula at the start of your original formula. For Example:
 
+``` bash
+=IFERROR(INDEX($A$1:$C$6, MATCH("dog",$A$1:$A$6,2)),"This is giving me an error")
+```
+
+However you can replace some specific errors instead if you need to (e.g: replacing a #N/A error) 
+
+``` bash
+=IF(ISNA(INDEX($A$1:$C$6, MATCH("dog",$A$1:$A$6,0),2)),"This is a #NA error", INDEX($A$1:$C$6, MATCH("dog",$A$1:$A$6,0),2))
+```
 
 #
 ### Date Format
@@ -200,8 +308,40 @@ If for some reason you would need to include nonbreaking space characters, you c
 
 #### Check the value of a cell inside the formula bar
 
+Let's use this table as an example:
+
+<table>
+<tr>
+  <th> </th>
+  <th>A</th>
+</tr>
+<tr>
+  <th>1</th>  
+  <td>5</td>
+</tr>
+<tr>
+  <th>2</th>    
+  <td>10</td>
+</tr>
+<tr>
+  <th>3</th>  
+  <td>3.5</td>
+</tr>
+<tr>
+  <th>4</th>  
+  <td>9</td>
+</tr>
+</table>
+
+
+Imagine that you write this formula in another cell: `=SUM(A1:A4)`. If you highlight the `A1:A4` part in the formula bar and then you press F9 you'll see the actual values of the range that you selected (In this example, you would see `=SUM({5,10,3.5,9})` . This is super useful for formulas that are extremely large, since you might have an error and this trick is specially useful to debug each part of the formula to see what's really returning. 
+
 #
 #### Shortcut to create new google sheet/doc/slide
 
+If you write  `sheet.new`,  `docs.new` or `slide.new` in your favorite web browser you'll automatically create a new google sheet/doc/slide!
+
 #
 #### Shortcut to Find and Replace in Google Sheets
+
+Most frequent shortcut to find things in general is `CTRL + F`, but you can use `CTRL + H` in Google Sheet to use directly the Find and Replace tool.
