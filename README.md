@@ -334,7 +334,7 @@ Let's use this table as an example:
 </table>
 
 
-Imagine that you write this formula in another cell: `=SUM(A1:A4)`. If you highlight the `A1:A4` part in the formula bar and then you press F9 you'll see the actual values of the range that you selected (In this example, you would see `=SUM({5,10,3.5,9})` . This is super useful for formulas that are extremely large, since you might have an error and this trick is specially useful to debug each part of the formula to see what's really returning. 
+Imagine that you write this formula in another cell: `=SUM(A1:A4)`. If you highlight the `A1:A4` part in the formula bar and then you press F9 you'll see the actual values of the range that you selected (In this example, you would see `=SUM({5,10,3.5,9})` . This is super useful for formulas that are extremely large, since you might have an error and this trick allows you to debug each part of the formula to see what's really returning. 
 
 #
 #### Shortcut to create new google sheet/doc/slide
