@@ -22,7 +22,7 @@ My frequent go-to formulas and their respectives uses. To clarify, some formulas
      - [Date formats](#date-formats)
         - [Convert the format " " to "08/22/2021](#) 
      - [Number formats](#number-formats)
-        - [Show 1K and 1M instead of 1.000 and 1.000.000](#show-1k-and-1m-instead-of-1000-and-1000000)  
+        - [Show 1K and 1M instead of 1,000 and 1,000,000](#show-1k-and-1m-instead-of-1000-and-1000000)  
 
 
 
@@ -281,9 +281,21 @@ However you can replace some specific errors instead if you need to (e.g: replac
 #
 ### Number formats
 
-#### Show 1K and 1M instead of 1.000 and 1.000.000
+#### Show 1K and 1M instead of 1,000 and 1,000,000
 
+To do this you need to apply a custom number format in the selected cells. If you need to change the format from 1,000 to 1K, use the following custom number format:
 
+``` bash
+0.0, “K”
+```
+
+If instead, for example, you need to change 1,000,000 to 1M, use the following custon number format:
+
+``` bash
+0.0,, “M”
+```
+
+Note that these format modifications are only changing the way that the numbers looks in the sheet, but the numbers stored in the cell are the same.
 
 #
 # Google Sheets Formulas
