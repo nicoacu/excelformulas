@@ -20,7 +20,7 @@ My frequent go-to formulas and their respectives uses. To clarify, some formulas
         - [Search for a keyword within a cell and categorize it with a label](#search-for-a-keyword-within-a-cell-and-categorize-it-with-a-label)
         - [Replace an #ERROR with some text](#replace-an-error-with-some-text)
      - [Date formats](#date-formats)
-        - [Convert the format " " to "08/22/2021](#) 
+        - [Cheatsheet to convert to different type of formats](#) 
      - [Number formats](#number-formats)
         - [Show 1K and 1M instead of 1,000 and 1,000,000](#show-1k-and-1m-instead-of-1000-and-1000000)  
 
@@ -275,7 +275,7 @@ However you can replace some specific errors instead if you need to (e.g: replac
 #
 ### Date Format
 
-#### Find if a cell contains an empty space
+#### Cheatsheet to convert to different type of formats
 
 
 #
