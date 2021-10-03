@@ -277,6 +277,33 @@ However you can replace some specific errors instead if you need to (e.g: replac
 
 #### Cheatsheet to convert to different type of formats
 
+<table>
+<tr>
+  <th></th>
+  <th>A</th>
+  <th>B</th>
+  <th>C</th>
+</tr>
+<tr>
+  <th>1</th>  
+  <td>Current Format</td>
+  <td>Wanted Format</td>
+  <td>Formula</td>
+</tr>
+<tr>
+  <th>2</th>    
+  <td>10/31/2021</td>
+  <td>October 31, 2021</td>
+  <td>=TEXT(A2,"mmmm dd, yyyy")</td>
+</tr>
+<tr>
+  <th>3</th>  
+  <td>10/31/2021</td>
+  <td>Sunday 31 October, 2021</td>
+  <td>=TEXT(A3, "dddd d mmmm, yyyy")(</td>
+</tr>
+</table>
+
 
 #
 ### Number formats
