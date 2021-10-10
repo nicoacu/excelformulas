@@ -300,10 +300,17 @@ However you can replace some specific errors instead if you need to (e.g: replac
   <th>3</th>  
   <td>10/31/2021</td>
   <td>Sunday 31 October, 2021</td>
-  <td>=TEXT(A3, "dddd d mmmm, yyyy")(</td>
+  <td>=TEXT(A3, "dddd d mmmm, yyyy")</td>
+</tr>
+  <tr>
+  <th>4</th>  
+  <td>10/31/2021</td>
+  <td>31/10/2021</td>
+  <td>=TEXT(A3, "dd/mm/yyyy")</td>
 </tr>
 </table>
 
+You might noticed that I use a =TEXT formula to change these formats, keep in mind that using that formula you are converting the data from the cell to a string, so, for example, if you are suming two cells with a date inside (which you can do), you won't be able to do so with the output of the =TEXT formula, as these values won't be considered numbers but will be considered text.
 
 #
 ### Number formats
@@ -322,13 +329,20 @@ If instead, for example, you need to change 1,000,000 to 1M, use the following c
 0.0,, “M”
 ```
 
-Note that these format modifications are only changing the way that the numbers looks in the sheet, but the numbers stored in the cell are the same.
+Note that these format modifications are only changing the way that the numbers looks in the sheet, but the numbers stored in the cell are the same. If you want to change the numbers from the cell to a different format (e.g: from number format to text format) you can use the =TEXT formula mentioned before. example: 
+
+``` bash
+=TEXT(=TEXT(1000,"#,##0,K")
+```
+
+<i>Expected output:</i> `1K`
 
 #
 # Google Sheets Formulas
 ### Array Formulas
 
 #### Fill range with formulas using another cell as a reference
+
 
 
 #
