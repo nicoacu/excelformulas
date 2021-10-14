@@ -510,6 +510,8 @@ Now you know what's the best part? you can use both: a =QUERY(=IMPORTRANGE(), qu
 
 #### Check the value of a cell inside the formula bar
 
+This works for both Excel and Google Sheets, but i would recommend to test it in Excel as it's more evident.
+
 Let's use this table as an example:
 
 <table>
