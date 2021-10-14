@@ -20,24 +20,19 @@ My frequent go-to formulas and their respectives uses. To clarify, some formulas
         - [Search for a keyword within a cell and categorize it with a label](#search-for-a-keyword-within-a-cell-and-categorize-it-with-a-label)
         - [Replace an #ERROR with some text](#replace-an-error-with-some-text)
      - [Date formats](#date-formats)
-        - [Cheatsheet to convert to different type of formats](#) 
+        - [Cheatsheet to convert to different type of formats](#cheatsheet-to-convert-to-different-type-of-formats) 
      - [Number formats](#number-formats)
         - [Show 1K and 1M instead of 1,000 and 1,000,000](#show-1k-and-1m-instead-of-1000-and-1000000)  
 
-
-
-
-
-
-
+#
 
 - [Google Sheets Formulas](#google-sheets-formulas)
-  - [Content](#content)
      - [Array Formulas](#array-formulas)
        - [Fill range with formulas using another cell as a reference](#fill-range-with-formulas-using-another-cell-as-a-reference)
-       - [Re-adapt a range used for a formula WITH a formula](#re-adapt-a-range-used-for-a-formula-with-a-formula)  
      - [Data Import](#data-import)
        - [Import filtered data from another Google Sheet](#import-filtered-data-from-another-google-sheet)    
+
+#
 
 - [Bonus tricks and shortcuts](#bonus-tricks-and-shortcuts)
   - [Check the value of a cell inside the formula bar](#check-the-value-of-a-cell-inside-the-formula-bar)
@@ -273,7 +268,7 @@ However you can replace some specific errors instead if you need to (e.g: replac
 ```
 
 #
-### Date Format
+### Date Formats
 
 #### Cheatsheet to convert to different type of formats
 
@@ -332,7 +327,7 @@ If instead, for example, you need to change 1,000,000 to 1M, use the following c
 Note that these format modifications are only changing the way that the numbers looks in the sheet, but the numbers stored in the cell are the same. If you want to change the numbers from the cell to a different format (e.g: from number format to text format) you can use the =TEXT formula mentioned before. example: 
 
 ``` bash
-=TEXT(=TEXT(1000,"#,##0,K")
+=TEXT(1000,"#,##0,K")
 ```
 
 <i>Expected output:</i> `1K`
@@ -343,17 +338,171 @@ Note that these format modifications are only changing the way that the numbers 
 
 #### Fill range with formulas using another cell as a reference
 
+Have you ever had a situation where you need to extend the range of your formulas to adapt them to the range of your current data set? Did you ever think about how annoying is to do this manually, specially if you need to update your data set frequently? well, you could use an =INDIRECT formula and if you are creative with it you can readapt ranges in a creative way. for example:
 
+``` bash
+=SUM(INDIRECT("H26:H")&ROW(A296)-1))
+```
+Would basically translate the formula to this
 
-#
+<i>Expected output:</i> `=SUM(H26:H295)`
 
-#### Re-adapt a range used for a formula WITH a formula
+But since it might be complex to use the INDIRECT formula to refer to ranges, there is another way to do this with the use of =ARRAYFORMULA(). <i>Note: using a lot of arrayformulas in a file can make it work slowly or even make it more prone to crash, so keep that in mind in case that you want to implement it for this use.</i> 
 
+=ARRAYFORMULA() is, basically, a single formula in a cell with an output that can be multiples rows/columns. For example purposes, let's check the following table:
+
+<table>
+<tr>
+  <th></th>
+  <th>A</th>
+  <th>B</th>
+  <th>C</th>
+</tr>
+<tr>
+  <th>1</th>  
+  <td>Name</td>
+  <td>Surname</td>
+  <td>Complete Name</td>
+</tr>
+<tr>
+  <th>2</th>    
+  <td>Geralt</td>
+  <td>Of Rivia</td>
+  <td> </td>
+</tr>
+<tr>
+  <th>3</th>  
+  <td>Yennefer</td>
+  <td>Vengerberg</td>
+  <td> </td>
+</tr>
+  <tr>
+  <th>4</th>  
+  <td>Cirilla Fiona</td>
+  <td>Elen Riannon</td>
+  <td> </td>
+</tr>
+</table>
+
+If we needed to complete column "C" with a formula, we could simply concatenate cells in column A and B to do this. for example, we could use =A2&" "&B2 and the output would be this: 
+
+<table>
+<tr>
+  <th></th>
+  <th>A</th>
+  <th>B</th>
+  <th>C</th>
+</tr>
+<tr>
+  <th>1</th>  
+  <td>Name</td>
+  <td>Surname</td>
+  <td>Complete Name</td>
+</tr>
+<tr>
+  <th>2</th>    
+  <td>Geralt</td>
+  <td>Of Rivia</td>
+  <td><b>=A2&" "&B2</b></td>
+</tr>
+<tr>
+  <th>3</th>  
+  <td>Yennefer</td>
+  <td>Vengerberg</td>
+  <td> </td>
+</tr>
+  <tr>
+  <th>4</th>  
+  <td>Cirilla Fiona</td>
+  <td>Elen Riannon</td>
+  <td> </td>
+</tr>
+</table>
+
+  <i>Expected output for C2:</i> `Geralt of Rivia`
+  
+However we would need to drag down the formula in C3 and C4 to do the same in those fields. In this case that's easy to do, but as mentioned before, if your table changes frequenly and you don't want to manually drag that down, you could use in the cell C2 of this example =ARRAYFORMULA(A2:A&" "&B2:B) and that would automatically fill the rest!
+  
+<table>
+<tr>
+  <th></th>
+  <th>A</th>
+  <th>B</th>
+  <th>C</th>
+</tr>
+<tr>
+  <th>1</th>  
+  <td>Name</td>
+  <td>Surname</td>
+  <td>Complete Name</td>
+</tr>
+<tr>
+  <th>2</th>    
+  <td>Geralt</td>
+  <td>Of Rivia</td>
+  <td><b>=ARRAYFORMULA(A2:A&" "&B2:B)</b></td>
+</tr>
+<tr>
+  <th>3</th>  
+  <td>Yennefer</td>
+  <td>Vengerberg</td>
+  <td> </td>
+</tr>
+  <tr>
+  <th>4</th>  
+  <td>Cirilla Fiona</td>
+  <td>Elen Riannon</td>
+  <td> </td>
+</tr>
+</table>  
+
+<i>Expected output:</i>
+
+<table>
+<tr>
+  <th></th>
+  <th>A</th>
+  <th>B</th>
+  <th>C</th>
+</tr>
+<tr>
+  <th>1</th>  
+  <td>Name</td>
+  <td>Surname</td>
+  <td>Complete Name</td>
+</tr>
+<tr>
+  <th>2</th>    
+  <td>Geralt</td>
+  <td>Of Rivia</td>
+  <td><b>Geralt of Rivia</b></td>
+</tr>
+<tr>
+  <th>3</th>  
+  <td>Yennefer</td>
+  <td>Vengerberg</td>
+  <td><b>Yennefer Vergerberg</b></td>
+</tr>
+  <tr>
+  <th>4</th>  
+  <td>Cirilla Fiona</td>
+  <td>Elen Riannon</td>
+  <td><b>Cirilla Fiona Elen Riannon</b></td>
+</tr>
+</table>  
+
+Here is a recommended [video](https://www.youtube.com/watch?v=ndxOEbgeqoQ), if you need more examples to understand how to use =ARRAYFORMULA 
 
 
 #
 ### Data Import
 #### Import filtered data from another Google Sheet
+
+There is an easy and fantastic formula to import data from one google sheet to another one, and that is =IMPORTRANGE("spreadsheet_url", "range_string"). As a reference, here is the [link](https://support.google.com/docs/answer/3093340?hl=en) to the documentation page in case that you need it.
+
+There is also another fantastic formula called =QUERY("data", query, [headers]) that works similar to a query in SQL. I'll also leave here the [link](https://support.google.com/docs/answer/3093343?hl=en) to the documentation page for reference.
+
+Now you know what's the best part? you can use both: a =QUERY(=IMPORTRANGE(), query, [headers])) formula to bring information from one tab (protip: you can even use more than one importrange formula to bring information from more than one tab) filtered with the query needed. It's hard to showcase this with Github tables, so I recommend to check this [video](https://www.youtube.com/watch?v=Jl964i0UuCY) instead if you are interested in learning how to do this.
 
 
 #
