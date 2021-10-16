@@ -549,3 +549,41 @@ If you write  `sheet.new`,  `docs.new` or `slide.new` in your favorite web brows
 #### Shortcut to Find and Replace in Google Sheets
 
 Most frequent shortcut to find things in general is `CTRL + F`, but you can use `CTRL + H` in Google Sheet to use directly the Find and Replace tool.
+
+#
+#
+
+### [ES]
+# Excel/Google Sheets Formulas
+
+Estas son las formulas y tips que más frecuentemente uso, junto a una descripción de como usarlo. Para aclarar, algunas formulas pueden ser usadas en ambos aplicativos (excel/google sheets) pero puede que requiera algunas modificaciones para que funcionen correctamente.
+
+## Contenido
+
+- [Excel Formulas](#excel-formulas)
+  - [Contenido](#content)
+      - [Manipulacion de texto](#text-manipulation)
+        - [Encontrar si hay un espacio vacio en una celda](#find-if-a-cell-contains-an-empty-space)
+        - [Buscar un valor usando dos columnas como referencia](#search-for-a-value-using-two-columns-as-reference)
+        - [Eliminar los espacios vacios de las celdas](#remove-empty-spaces-from-a-cell)
+        - [Encontrar una palabra específica en una celda y categorizarla.](#search-for-a-keyword-within-a-cell-and-categorize-it-with-a-label)
+        - [Reemplazar un #ERROR con algún texto](#replace-an-error-with-some-text)
+     - [Formato de Fechas](#date-formats)
+        - [Machete para convertir a diferente tipo de formatos](#cheatsheet-to-convert-to-different-type-of-formats) 
+     - [Formato de Numeros](#number-formats)
+        - [Mostrar los numeros como 1K y 1M en vez de 1,000 y 1,000,000](#show-1k-and-1m-instead-of-1000-and-1000000)  
+
+#
+
+- [Google Sheets Formulas](#google-sheets-formulas)
+     - [Array Formulas](#array-formulas)
+       - [Auto completar rango con formulas usando una celda como referencia](#fill-range-with-formulas-using-another-cell-as-a-reference)
+     - [Importar Data](#data-import)
+       - [Importar data filtrada automaticamente de otro google sheet](#import-filtered-data-from-another-google-sheet)    
+
+#
+
+- [Bonus tips y atajos](#bonus-tricks-and-shortcuts)
+  - [Chequear directamente el valor de una celda dentro de la barra de formulas](#check-the-value-of-a-cell-inside-the-formula-bar)
+  - [Atajo rápido para crear nuevos google sheet/doc/slide](#shortcut-to-create-new-google-sheetdocslide)
+  - [Atajo para Buscar y Reemplazar en Google Sheets](#shortcut-to-find-and-replace-in-google-sheets) 
