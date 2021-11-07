@@ -829,56 +829,57 @@ However you can replace some specific errors instead if you need to (e.g: replac
 </tr>
 <tr>
   <th>1</th>  
-  <td>Current Format</td>
-  <td>Wanted Format</td>
+  <td>Formato Actual</td>
+  <td>Formato Deseado</td>
   <td>Formula</td>
 </tr>
 <tr>
   <th>2</th>    
   <td>10/31/2021</td>
-  <td>October 31, 2021</td>
-  <td>=TEXT(A2,"mmmm dd, yyyy")</td>
+  <td>Octubre 31, 2021</td>
+  <td>=TEXTO(A2,"mmmm dd, yyyy")</td>
 </tr>
 <tr>
   <th>3</th>  
   <td>10/31/2021</td>
-  <td>Sunday 31 October, 2021</td>
-  <td>=TEXT(A3, "dddd d mmmm, yyyy")</td>
+  <td>Domingo 31 Octubre, 2021</td>
+  <td>=TEXTO(A3, "dddd d mmmm, yyyy")</td>
 </tr>
   <tr>
   <th>4</th>  
   <td>10/31/2021</td>
   <td>31/10/2021</td>
-  <td>=TEXT(A3, "dd/mm/yyyy")</td>
+  <td>=TEXTO(A3, "dd/mm/yyyy")</td>
 </tr>
 </table>
 
-You might noticed that I use a =TEXT formula to change these formats, keep in mind that using that formula you are converting the data from the cell to a string, so, for example, if you are suming two cells with a date inside (which you can do), you won't be able to do so with the output of the =TEXT formula, as these values won't be considered numbers but will be considered text.
+Habrás notado que usé la formula =TEXTO para cambiar esos formatos. Ten presente que usando esa formula estás efectivamente convirtiendo la data de la celda a un string, por lo que, si por ejemplo, quieres sumar dos fechas de dos celdas distintas (algo posible de hacer), no podrás hacer la sumaa si las celdas están completadas por la formula =TEXTO, ya que esas celdas por más que tengan fechas van a ser consideradas como texto.
+
 
 #
 ### Formato de Numeros
 
 #### Mostrar los numeros como 1K y 1M en vez de 1,000 y 1,000,000
 
-To do this you need to apply a custom number format in the selected cells. If you need to change the format from 1,000 to 1K, use the following custom number format:
+Para realizar esto tendrás que aplicar un formato de numero personalizado en las celdas seleccionadas. Si necesitás cambiar el formato de 1,000 a 1K, tendrás que usar el siguiente formato de numero personalizado:
 
 ``` bash
 0.0, “K”
 ```
 
-If instead, for example, you need to change 1,000,000 to 1M, use the following custon number format:
+Si en cambio, por ejemplo, necesitás cambiar el formato de 1,000,000 a 1M, tendrás que usar el siguiente formato:
 
 ``` bash
 0.0,, “M”
 ```
 
-Note that these format modifications are only changing the way that the numbers looks in the sheet, but the numbers stored in the cell are the same. If you want to change the numbers from the cell to a different format (e.g: from number format to text format) you can use the =TEXT formula mentioned before. example: 
+Tené en cuenta que estas modificaciones de formato estan simplemente cambiando la manera en que los numeros se ven en las celdas, pero dentro de ellas el valor sigue siendo el mismo. Si quisieses cambiar el valor DENTRO de la celda, tendrías que usar la formula de =TEXTO combinada con los ejemplos de formato mencionados arriba. Por ejemplo:
 
 ``` bash
-=TEXT(1000,"#,##0,K")
+=TEXTO(1000,"#,##0,K")
 ```
 
-<i>Expected output:</i> `1K`
+<i>Resultado esperado:</i> `1K`
 
 #
 # Google Sheets Formulas
